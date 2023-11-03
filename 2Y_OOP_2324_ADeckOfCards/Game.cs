@@ -15,7 +15,6 @@ namespace _2Y_OOP_2324_ADeckOfCards
             AI ai = new AI();
             bool playerchoice = false;
             bool computerchoice = false;
-            string value = "";
             bool gameround = true;
             int playerscore = 0;
             int computerscore = 0;
@@ -45,7 +44,7 @@ namespace _2Y_OOP_2324_ADeckOfCards
                         computervalue += ComputerCard.GetCardValue();
                         start = false;
                     }
-                    if (!compcandraw && !playcandraw)
+                    if (!compcandraw && !playcandraw || computervalue > 21 || playervalue > 21 || playervalue > computervalue && !compcandraw || computervalue > playervalue && !playcandraw)
                     {
                         Console.WriteLine($"The final deck values are {playervalue} for the player and {computervalue} for the computer. computing....");
                         Thread.Sleep(1500);

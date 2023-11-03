@@ -17,7 +17,7 @@ namespace _2Y_OOP_2324_ADeckOfCards
         private bool strat(int Value, int player)
         {
             //if true the computer will go for riskier plays
-            if (Value > player)
+            if (Value < player)
             {
                 return true;
             }
