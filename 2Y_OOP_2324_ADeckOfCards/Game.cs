@@ -55,6 +55,11 @@ namespace _2Y_OOP_2324_ADeckOfCards
                         gamenumber++;
                         gameround = false;
                     }
+                    if (computervalue > 21 || playervalue > 21)
+                    {
+                        compcandraw = false;
+                        playcandraw = false;
+                    }
                     if (playervalue < 21 && playcandraw)
                     {
                         playerchoice = PlayerChoice(playervalue, computervalue);
@@ -71,12 +76,7 @@ namespace _2Y_OOP_2324_ADeckOfCards
                         }
                        
                     }
-                    if(computervalue > 21)
-                    {
-                        compcandraw = false;
-                        playcandraw = false;
-                    }
-                    else if (compcandraw && computervalue < 21)
+                    if (compcandraw && computervalue < 21)
                     {
                         computerchoice = ai.Choice(computervalue, playervalue);
                         Console.WriteLine("computer is now making a choice");
