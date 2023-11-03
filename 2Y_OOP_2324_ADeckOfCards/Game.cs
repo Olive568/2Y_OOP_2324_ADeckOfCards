@@ -101,6 +101,8 @@ namespace _2Y_OOP_2324_ADeckOfCards
                                                  
                 }
                 gameround = PlayAgain();
+                if (!gameround)
+                    cont = false;
             }
         }
         private bool PlayerChoice(int value, int comp)
@@ -143,7 +145,7 @@ namespace _2Y_OOP_2324_ADeckOfCards
             else if (value2 > value)
                 return $"The Computer is winning!  Player : {value}   Computer : {value2}";
             else
-                return $"That round was a draw!  Player : {value}   Computer : {value2}";
+                return $"Current Score is a draw!  Player : {value}   Computer : {value2}";
         }
         private bool PlayAgain()
         {
