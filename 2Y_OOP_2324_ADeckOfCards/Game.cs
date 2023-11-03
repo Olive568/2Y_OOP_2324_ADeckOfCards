@@ -143,7 +143,7 @@ namespace _2Y_OOP_2324_ADeckOfCards
             else if (value2 > value)
                 return $"The Computer is winning!  Player : {value}   Computer : {value2}";
             else
-                return $"It's a draw!  Player : {value}   Computer : {value2}";
+                return $"That round was a draw!  Player : {value}   Computer : {value2}";
         }
         private bool PlayAgain()
         {
