@@ -55,7 +55,7 @@ namespace _2Y_OOP_2324_ADeckOfCards
                         gamenumber++;
                         gameround = false;
                     }
-                    if (computervalue > 21 || playervalue > 21)
+                    if (computervalue > 21 || playervalue > 21 || playervalue > computervalue && !compcandraw || computervalue > playervalue && !playcandraw)
                     {
                         compcandraw = false;
                         playcandraw = false;
@@ -94,7 +94,7 @@ namespace _2Y_OOP_2324_ADeckOfCards
                             computerchoice = false;
                             compcandraw= false;
                             Console.WriteLine("The computer did not draw");
-                            Thread.Sleep(500);
+                            Thread.Sleep(1500);
                         }
                        
                     }
