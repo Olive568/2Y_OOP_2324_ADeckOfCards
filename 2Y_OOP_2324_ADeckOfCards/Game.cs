@@ -27,13 +27,13 @@ namespace _2Y_OOP_2324_ADeckOfCards
                 bool compcandraw = true;
                 bool playcandraw = true;
                 DeckOfCards doc = new DeckOfCards(true);
-                Console.Clear();
                 int playervalue = 0;
                 int computervalue = 0;
                 Card PlayerCard = doc.drawACard();
                 Card ComputerCard = doc.drawACard();
                 while (gameround)
                 {  
+                    Console.Clear();
                     while (start)
                     {
                         Console.WriteLine($"This is round {gamenumber}");
@@ -45,46 +45,62 @@ namespace _2Y_OOP_2324_ADeckOfCards
                         computervalue += ComputerCard.GetCardValue();
                         start = false;
                     }
-                    if(playcandraw)
-                        playerchoice = PlayerChoice(playervalue, computervalue);
-                    if (playerchoice && playervalue < 21)
-                    {
-                        PlayerCard = doc.drawACard();
-                        Console.WriteLine($"your Card is the {PlayerCard.GetCardFace()} of {PlayerCard.GetCardSuit()} with a value of {PlayerCard.GetCardValue()}");
-                        playervalue += PlayerCard.GetCardValue();
-                        Console.WriteLine("The value of your deck is now " + playervalue);
-                    }
-                    else if (!playerchoice)
-                        playcandraw = false;
-                    Console.WriteLine("computer is now making a choice");
-                    Thread.Sleep(500);
-                    computerchoice = ai.Choice(computervalue, playervalue);
-                    if(computerchoice && compcandraw && computervalue < 21)
-                    {
-                        ComputerCard = doc.drawACard();
-                        Console.WriteLine($"The computer's Card is the  {ComputerCard.GetCardFace()} of {ComputerCard.GetCardSuit()} with a value of {ComputerCard.GetCardValue()}");
-                        computervalue += ComputerCard.GetCardValue();
-                        Console.WriteLine("The computers deck value is now " + computervalue);
-                        Thread.Sleep(1000);
-                    }
-                    else if(!computerchoice)
-                    {
-                        compcandraw = false;
-                        Console.WriteLine("The computer did not draw");
-                        Thread.Sleep(500);
-                    }
                     if (!compcandraw && !playcandraw)
                     {
                         Console.WriteLine($"The final deck values are {playervalue} for the player and {computervalue} for the computer. computing....");
                         Thread.Sleep(1500);
                         playerscore += checker(playervalue, computervalue);
-                        computerscore+= checker(computervalue, playervalue);
+                        computerscore += checker(computervalue, playervalue);
                         Console.WriteLine(Announce(playerscore, computerscore));
                         gamenumber++;
                         gameround = false;
                     }
-
+                    if (playervalue < 21 && playcandraw)
+                    {
+                        playerchoice = PlayerChoice(playervalue, computervalue);
+                        if (playerchoice)
+                        {
+                            PlayerCard = doc.drawACard();
+                            Console.WriteLine($"your Card is the {PlayerCard.GetCardFace()} of {PlayerCard.GetCardSuit()} with a value of {PlayerCard.GetCardValue()}");
+                            playervalue += PlayerCard.GetCardValue();
+                            Console.WriteLine("The value of your deck is now " + playervalue);
+                        }
+                        else
+                        {
+                            playcandraw = false;
+                        }
+                       
+                    }
+                    if(computervalue > 21)
+                    {
+                        compcandraw = false;
+                        playcandraw = false;
+                    }
+                    else if (compcandraw && computervalue < 21)
+                    {
+                        computerchoice = ai.Choice(computervalue, playervalue);
+                        Console.WriteLine("computer is now making a choice");
+                        Thread.Sleep(500);
+                        if(computerchoice)
+                        {
+                            ComputerCard = doc.drawACard();
+                            Console.WriteLine($"The computer's Card is the  {ComputerCard.GetCardFace()} of {ComputerCard.GetCardSuit()} with a value of {ComputerCard.GetCardValue()}");
+                            computervalue += ComputerCard.GetCardValue();
+                            Console.WriteLine("The computers deck value is now " + computervalue);
+                            Thread.Sleep(1000);
+                        }
+                        else
+                        {
+                            computerchoice = false;
+                            compcandraw= false;
+                            Console.WriteLine("The computer did not draw");
+                            Thread.Sleep(500);
+                        }
+                       
+                    }
+                                                 
                 }
+                gameround = PlayAgain();
             }
         }
         private bool PlayerChoice(int value, int comp)
@@ -128,6 +144,22 @@ namespace _2Y_OOP_2324_ADeckOfCards
                 return $"The Computer is winning!  Player : {value}   Computer : {value2}";
             else
                 return $"It's a draw!  Player : {value}   Computer : {value2}";
+        }
+        private bool PlayAgain()
+        {
+            Console.Write("Do you want to play again? Y/N : ");
+            string choice = Console.ReadLine().ToUpper();
+            switch (choice)
+            {
+                case "N":
+                    return false;
+                case "Y":
+                    return true;
+                default:
+                    Console.WriteLine("That is not a valid choice");
+                    Thread.Sleep(250);
+                    return PlayAgain(); 
+            }
         }
 
     }
